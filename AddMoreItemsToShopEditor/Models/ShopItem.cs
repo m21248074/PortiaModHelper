@@ -1,6 +1,6 @@
 ﻿namespace AddMoreItemsToShopEditor.Models
 {
-    class ShopItem
+    public class ShopItem
     {
         public int ID { get; set; }
         public int count { get; set; }

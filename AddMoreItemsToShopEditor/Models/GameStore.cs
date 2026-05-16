@@ -1,10 +1,10 @@
 ﻿namespace AddMoreItemsToShopEditor.Models
 {
-    class GameStore
+    public class GameStore
     {
         public int StoreId { get; set; }
-        public string EnglishName { get; set; }
-        public string TargetLangName { get; set; }
-        public string OpenTime { get; set; }
+        public string EnglishName { get; set; } = string.Empty;
+        public string TargetLangName { get; set; } = string.Empty;
+        public string OpenTime { get; set; } = string.Empty;
     }
 }
