@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddMoreItemsToShopEditor"
         mc:Ignorable="d"
-        Title="AddMoreItemsToShop Editor" Height="600" Width="850">
+        Title="AddMoreItemsToShop Editor" Height="600" Width="900">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel>
@@ -19,9 +19,7 @@
             <TextBox x:Name="TxtPassedJsonPath" IsReadOnly="True" Background="#EAEAEA" Padding="5" Margin="0,0,0,15"/>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Text="Loaded Mod Items Validation Table:" FontSize="14" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,0,5"/>
-
-        <DataGrid x:Name="DgModItems" Grid.Row="2" 
+        <DataGrid x:Name="DgModItems" Grid.Row="1" 
                   AutoGenerateColumns="False" 
                   IsReadOnly="True" 
                   RowBackground="White" 
@@ -30,16 +28,42 @@
                   BorderBrush="#CCCCCC" 
                   Background="White">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Item ID" Binding="{Binding ID}" Width="80"/>
-                <DataGridTextColumn Header="English Name" Binding="{Binding EnglishName}" Width="150"/>
-                <DataGridTextColumn Header="Local Name" Binding="{Binding TargetLangName}" Width="150"/>
-                <DataGridTextColumn Header="Quantity" Binding="{Binding Count}" Width="70"/>
-                <DataGridTextColumn Header="Store ID" Binding="{Binding StoreId}" Width="70"/>
-                <DataGridTextColumn Header="Chance" Binding="{Binding Chance}" Width="70"/>
-                <DataGridTextColumn Header="Game Description" Binding="{Binding Description}" Width="*"/>
-                <DataGridTextColumn Header="Store Name" Binding="{Binding StoreName}" Width="*"/>
-                <DataGridTextColumn Header="Stroe Open Time" Binding="{Binding OpenTime}" Width="*"/>
+                <DataGridTextColumn Header="Item ID" Binding="{Binding ID}" />
+                <DataGridTextColumn Header="Item Name" Binding="{Binding FormattedName}" />
+                <DataGridTextColumn Header="Store Name" Binding="{Binding StoreName}" />
+                <DataGridTextColumn Header="Count" Binding="{Binding count}" />
+                <DataGridTextColumn Header="Currency" Binding="{Binding currency}" />
+                <DataGridTextColumn Header="Require Mission" Binding="{Binding requireMission}" />
+                <DataGridTextColumn Header="Chance" Binding="{Binding chance}" />
+
+                <DataGridTemplateColumn Header="Actions" Width="140">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Edit" Width="50" Height="22" Margin="0,0,5,0"
+                                        Click="BtnEditItem_Click"
+                                        Background="#007ACC" Foreground="White" BorderThickness="0"/>
+
+                                <Button Content="Delete" Width="50" Height="22" 
+                                        Click="BtnDeleteItem_Click"
+                                        Background="#DC3545" Foreground="White" BorderThickness="0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button x:Name="BtnAddItem" Content="➕ Add New Item" 
+            Height="40" Width="150" Margin="0,0,15,0"
+            Click="BtnAddItem_Click" Background="#007ACC" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+
+            <Button x:Name="BtnSaveJson" Content="Save Changes to JSON" 
+            Height="40" Width="200"
+            Click="BtnSaveJson_Click" Background="#28A745" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+        </StackPanel>
+
     </Grid>
 </Window>
