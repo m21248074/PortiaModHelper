@@ -16,10 +16,10 @@ namespace AddMoreItemsToShopEditor
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_OnLoaded;
+            this.Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             string? detectedPath = AutoDetectPortiaPath();
 
