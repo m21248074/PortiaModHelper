@@ -5,18 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddMoreItemsToShopEditor"
         mc:Ignorable="d"
-        Title="AddMoreItemsToShop Editor" Height="450" Width="800">
+        Title="AddMoreItemsToShop Editor" Height="600" Width="850">
     <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <StackPanel>
             <TextBlock Text="Editor Workspace" FontSize="20" FontWeight="Bold" Foreground="#333333"/>
-
-            <TextBlock Text="Active Game Directory:" Margin="0,15,0,5" FontWeight="Thin" Foreground="#555555"/>
-            <TextBox x:Name="TxtPassedGamePath" IsReadOnly="True" Background="#EAEAEA" Padding="5"/>
-
-            <TextBlock Text="Active JSON Path:" Margin="0,10,0,5" FontWeight="Thin" Foreground="#555555"/>
-            <TextBox x:Name="TxtPassedJsonPath" IsReadOnly="True" Background="#EAEAEA" Padding="5"/>
-
-            <TextBlock Text="Database &amp; JSON Editor content will be here..." Margin="0,50,0,0" HorizontalAlignment="Center" Foreground="#999999" FontStyle="Italic"/>
+            <TextBlock Text="Active JSON Path:" Margin="0,10,0,5" FontWeight="SemiBold" Foreground="#555555"/>
+            <TextBox x:Name="TxtPassedJsonPath" IsReadOnly="True" Background="#EAEAEA" Padding="5" Margin="0,0,0,15"/>
         </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="Loaded Mod Items Validation Table:" FontSize="14" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,0,5"/>
+
+        <DataGrid x:Name="DgModItems" Grid.Row="2" 
+                  AutoGenerateColumns="True" 
+                  IsReadOnly="True" 
+                  RowBackground="White" 
+                  AlternatingRowBackground="#F9F9F9" 
+                  GridLinesVisibility="Horizontal" 
+                  BorderBrush="#CCCCCC" 
+                  Background="White" 
+                  VerticalAlignment="Stretch"/>
     </Grid>
 </Window>
