@@ -5,12 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddMoreItemsToShopEditor"
         mc:Ignorable="d"
-        Title="AddMoreItemsToShop Editor" Height="450" Width="800">
+        Title="AddMoreItemsToShop Editor" Height="300" Width="580">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Welcome to AddMoreItemsToShop Editor" FontSize="18" FontWeight="Bold" Foreground="#333333"/>
+            <TextBlock Text="Please verify or select your 'My Time at Portia' installation directory:" Margin="0,5,0,0" Foreground="#666666"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Path Display TextBox -->
+            <TextBox x:Name="TxtGamePath" Grid.Column="0" Height="30" 
+                     VerticalContentAlignment="Center" Padding="5,0" 
+                     IsReadOnly="True" Background="White" BorderBrush="#CCCCCC"/>
+
+            <!-- Browse Button -->
+            <Button x:Name="BtnBrowse" Grid.Column="1" Content="Browse..." 
+                    Width="90" Height="30" Margin="10,0,0,0" 
+                    Click="BtnBrowse_Click" Background="#007ACC" Foreground="White" BorderThickness="0"/>
+        </Grid>
+
+        <Button x:Name="BtnLoadConfig" Grid.Row="2" Content="Confirm &amp; Load Mod Configuration" 
+                Height="40" Margin="0,20,0,0" IsEnabled="False"
+                Click="BtnLoadConfig_Click" Background="#28A745" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+
+        <TextBlock x:Name="TxtStatus" Grid.Row="2" Text="Detecting game directory..." 
+                   VerticalAlignment="Bottom" Foreground="#FF5722" FontStyle="Italic"/>
+        
+        
     </Grid>
 </Window>
