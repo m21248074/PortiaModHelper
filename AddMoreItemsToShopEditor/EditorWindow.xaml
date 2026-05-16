@@ -22,13 +22,24 @@
         <TextBlock Grid.Row="1" Text="Loaded Mod Items Validation Table:" FontSize="14" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,0,5"/>
 
         <DataGrid x:Name="DgModItems" Grid.Row="2" 
-                  AutoGenerateColumns="True" 
+                  AutoGenerateColumns="False" 
                   IsReadOnly="True" 
                   RowBackground="White" 
                   AlternatingRowBackground="#F9F9F9" 
                   GridLinesVisibility="Horizontal" 
                   BorderBrush="#CCCCCC" 
-                  Background="White" 
-                  VerticalAlignment="Stretch"/>
+                  Background="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item ID" Binding="{Binding ID}" Width="80"/>
+                <DataGridTextColumn Header="English Name" Binding="{Binding EnglishName}" Width="150"/>
+                <DataGridTextColumn Header="Local Name" Binding="{Binding TargetLangName}" Width="150"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Count}" Width="70"/>
+                <DataGridTextColumn Header="Store ID" Binding="{Binding StoreId}" Width="70"/>
+                <DataGridTextColumn Header="Chance" Binding="{Binding Chance}" Width="70"/>
+                <DataGridTextColumn Header="Game Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Store Name" Binding="{Binding StoreName}" Width="*"/>
+                <DataGridTextColumn Header="Stroe Open Time" Binding="{Binding OpenTime}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
