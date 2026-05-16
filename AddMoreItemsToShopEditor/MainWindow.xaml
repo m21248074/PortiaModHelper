@@ -61,6 +61,5 @@
         <TextBlock x:Name="TxtStatus" Grid.Row="4" Text="Detecting game directory..." 
                    VerticalAlignment="Bottom" Foreground="#FF5722" FontStyle="Italic"/>
         
-        
     </Grid>
 </Window>
