@@ -37,7 +37,7 @@
 
         <StackPanel Grid.Row="2" Margin="0,15,0,0">
             <TextBlock Text="Reference Language (For displaying item names):" FontWeight="SemiBold" Foreground="#555555" Margin="0,0,0,5"/>
-            <ComboBox x:Name="CboLanguage" Height="30" VerticalContentAlignment="Center" SelectedIndex="0">
+            <ComboBox x:Name="CboLanguage" Height="30" VerticalContentAlignment="Center" SelectedIndex="2">
                 <ComboBoxItem Content="English" Tag="English"/>
                 <ComboBoxItem Content="简体中文 (Simplified Chinese)" Tag="Chinese"/>
                 <ComboBoxItem Content="繁體中文 (Traditional Chinese)" Tag="T_Chinese"/>
