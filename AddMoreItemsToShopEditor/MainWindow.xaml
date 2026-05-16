@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddMoreItemsToShopEditor"
         mc:Ignorable="d"
-        Title="AddMoreItemsToShop Editor" Height="300" Width="580">
+        Title="AddMoreItemsToShop Editor" Height="360" Width="580">
     <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -24,22 +26,39 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Path Display TextBox -->
             <TextBox x:Name="TxtGamePath" Grid.Column="0" Height="30" 
                      VerticalContentAlignment="Center" Padding="5,0" 
                      IsReadOnly="True" Background="White" BorderBrush="#CCCCCC"/>
 
-            <!-- Browse Button -->
             <Button x:Name="BtnBrowse" Grid.Column="1" Content="Browse..." 
                     Width="90" Height="30" Margin="10,0,0,0" 
                     Click="BtnBrowse_Click" Background="#007ACC" Foreground="White" BorderThickness="0"/>
         </Grid>
 
-        <Button x:Name="BtnLoadConfig" Grid.Row="2" Content="Confirm &amp; Load Mod Configuration" 
+        <StackPanel Grid.Row="2" Margin="0,15,0,0">
+            <TextBlock Text="Reference Language (For displaying item names):" FontWeight="SemiBold" Foreground="#555555" Margin="0,0,0,5"/>
+            <ComboBox x:Name="CboLanguage" Height="30" VerticalContentAlignment="Center" SelectedIndex="0">
+                <ComboBoxItem Content="English" Tag="English"/>
+                <ComboBoxItem Content="简体中文 (Simplified Chinese)" Tag="Chinese"/>
+                <ComboBoxItem Content="繁體中文 (Traditional Chinese)" Tag="T_Chinese"/>
+                <ComboBoxItem Content="Deutsch (German)" Tag="German"/>
+                <ComboBoxItem Content="Français (French)" Tag="French"/>
+                <ComboBoxItem Content="Italiano (Italian)" Tag="Italian"/>
+                <ComboBoxItem Content="Español (Spanish)" Tag="Spanish"/>
+                <ComboBoxItem Content="日本語 (Japanese)" Tag="Japanese"/>
+                <ComboBoxItem Content="Русский (Russian)" Tag="Russian"/>
+                <ComboBoxItem Content="한국어 (Korean)" Tag="Korean"/>
+                <ComboBoxItem Content="Türkçe (Turkish)" Tag="Turkish"/>
+                <ComboBoxItem Content="Português (Portuguese)" Tag="Portuguese"/>
+                <ComboBoxItem Content="Tiếng Việt (Vietnamese)" Tag="Vietnamese"/>
+            </ComboBox>
+        </StackPanel>
+        
+        <Button x:Name="BtnLoadConfig" Grid.Row="3" Content="Confirm &amp; Load Mod Configuration" 
                 Height="40" Margin="0,20,0,0" IsEnabled="False"
                 Click="BtnLoadConfig_Click" Background="#28A745" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
 
-        <TextBlock x:Name="TxtStatus" Grid.Row="2" Text="Detecting game directory..." 
+        <TextBlock x:Name="TxtStatus" Grid.Row="4" Text="Detecting game directory..." 
                    VerticalAlignment="Bottom" Foreground="#FF5722" FontStyle="Italic"/>
         
         

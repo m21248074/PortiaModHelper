@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Controls;
 
 
 namespace AddMoreItemsToShopEditor
@@ -118,7 +119,10 @@ namespace AddMoreItemsToShopEditor
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonContent))
                 {
-                    EditorWindow editorWorkspace = new EditorWindow(gamePath, fullJsonPath);
+                    var selectedItem = CboLanguage.SelectedItem as ComboBoxItem;
+                    string targetLanguageColumn = selectedItem?.Tag?.ToString() ?? "English";
+
+                    EditorWindow editorWorkspace = new EditorWindow(gamePath, fullJsonPath, targetLanguageColumn);
 
                     editorWorkspace.Show();
 
