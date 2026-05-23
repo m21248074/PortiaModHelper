@@ -156,5 +156,56 @@ namespace RelicManager
 				}
 			}
 		}
+
+		public static bool ExchangePieces(Relic sourceRelic, int sourcePieceIdx, Relic targetRelic, int targetPieceIdx)
+		{
+            if (sourceRelic == null || targetRelic == null)
+            {
+                Main.Logger.Log("【交換失敗】傳入的古物數據為空 (Null)!");
+                return false;
+            }
+
+            if (sourcePieceIdx < 0 || sourcePieceIdx >= sourceRelic.Pieces || targetPieceIdx < 0 || targetPieceIdx >= targetRelic.Pieces)
+            {
+                Main.Logger.Log("【交換失敗】錯誤的碎片索引位置。");
+                return false;
+            }
+
+            if (sourceRelic == targetRelic && sourcePieceIdx == targetPieceIdx)
+            {
+                Main.Logger.Log("【交換失敗】不能拿同一個碎片自己換自己。");
+                return false;
+            }
+
+            int fromItemID = sourceRelic.PieceIDs[sourcePieceIdx];
+            int toItemID = targetRelic.PieceIDs[targetPieceIdx];
+
+            if (Module<Player>.Self.bag.GetItemCount(fromItemID) <= 0)
+            {
+                Main.Logger.Log(string.Format("【交換失敗】您的背包內目前沒有「{0}」的碎片 {1}!", sourceRelic.Name, sourcePieceIdx + 1));
+                return false;
+            }
+
+            if (Module<Player>.Self.bag.GetItemCount(toItemID) <= 0 && Module<Player>.Self.bag.GetFreeSlotCount(true) <= 0)
+            {
+                Main.Logger.Log($"【交換失敗】背包空間不足！無法容納新古物「{targetRelic.Name}」的碎片。");
+                return false;
+            }
+
+            Module<Player>.Self.bag.RemoveItem(fromItemID, 1, false);
+
+            Module<Player>.Self.bag.AddItem(toItemID, 1, false, 0);
+
+            Main.Logger.Log(string.Format("【交換成功】已成功消耗「{0}」碎片 {1}，換得「{2}」碎片 {3}",
+                sourceRelic.Name, sourcePieceIdx + 1, targetRelic.Name, targetPieceIdx + 1));
+
+            sourceRelic.GetPiecesOwnedCounts();
+            if (sourceRelic != targetRelic)
+            {
+                targetRelic.GetPiecesOwnedCounts();
+            }
+
+            return true;
+        }
 	}
 }
