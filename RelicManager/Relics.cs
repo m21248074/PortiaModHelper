@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace RelicManager
 {
@@ -8,10 +9,10 @@ namespace RelicManager
 	public class Relics
 	{
 		// Token: 0x17000001 RID: 1
-		// (get) Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
+		// (get) Token: 0x06000001 RID: 1
 		public static IList<Relic> RelicsList { get; } = new ReadOnlyCollection<Relic>(new List<Relic>
 		{
-			new Relic("AI Model", 5, 3, 270.0, "Desert Abandoned Ruins", new int[]
+			new Relic("機器人雕塑", 5, 3, 270.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000173
 			}, new int[]
@@ -22,7 +23,7 @@ namespace RelicManager
 				4010113,
 				4010114
 			}),
-			new Relic("Ancient Computer", 2, 1, 180.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("舊電腦", 2, 1, 180.0, "濕地廢棄遺跡", new int[]
 			{
 				3000240
 			}, new int[]
@@ -30,7 +31,7 @@ namespace RelicManager
 				4010146,
 				4010147
 			}),
-			new Relic("Autumn Doll", 2, 1, 180.0, "Desert Abandoned Ruins", new int[]
+			new Relic("秋娃娃", 2, 1, 180.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000168
 			}, new int[]
@@ -38,7 +39,7 @@ namespace RelicManager
 				4010098,
 				4010099
 			}),
-			new Relic("Bonsai", 4, 2, 240.0, "Desert Abandoned Ruins", new int[]
+			new Relic("假山", 4, 2, 240.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000114
 			}, new int[]
@@ -48,7 +49,7 @@ namespace RelicManager
 				4010139,
 				4010140
 			}),
-			new Relic("Catmaid Statue", 4, 2, 240.0, "Abandoned Ruins #2", new int[]
+			new Relic("貓魚雕塑", 4, 2, 240.0, "廢棄遺跡2號", new int[]
 			{
 				3000116
 			}, new int[]
@@ -58,7 +59,7 @@ namespace RelicManager
 				4010082,
 				4010083
 			}),
-			new Relic("Cauldron", 4, 2, 240.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("鼎", 4, 2, 240.0, "濕地廢棄遺跡", new int[]
 			{
 				3000279
 			}, new int[]
@@ -68,7 +69,7 @@ namespace RelicManager
 				4010166,
 				4010167
 			}),
-			new Relic("Clay Figure: Female", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("頂罐女人", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000175
 			}, new int[]
@@ -77,7 +78,7 @@ namespace RelicManager
 				4010119,
 				4010120
 			}),
-			new Relic("Clay Figure: Male", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("頂罐男人", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000174
 			}, new int[]
@@ -86,7 +87,7 @@ namespace RelicManager
 				4010116,
 				4010117
 			}),
-			new Relic("Clear Sky Doll", 3, 1, 210.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("晴天娃娃", 3, 1, 210.0, "濕地廢棄遺跡", new int[]
 			{
 				3000278
 			}, new int[]
@@ -95,7 +96,7 @@ namespace RelicManager
 				4010162,
 				4010163
 			}),
-			new Relic("Damour Roly-Poly", 3, 1, 210.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("達摩不倒翁", 3, 1, 210.0, "濕地廢棄遺跡", new int[]
 			{
 				3000277
 			}, new int[]
@@ -104,7 +105,7 @@ namespace RelicManager
 				4010159,
 				4010160
 			}),
-			new Relic("Diving Helmet", 3, 1, 210.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("潛水頭盔", 3, 1, 210.0, "濕地廢棄遺跡", new int[]
 			{
 				7000111
 			}, new int[]
@@ -113,7 +114,7 @@ namespace RelicManager
 				4010142,
 				4010143
 			}),
-			new Relic("Duck on a King", 3, 1, 210.0, "Abandoned Ruins #2", new int[]
+			new Relic("黃鴨頭盔", 3, 1, 210.0, "廢棄遺跡2號", new int[]
 			{
 				3000109
 			}, new int[]
@@ -122,7 +123,7 @@ namespace RelicManager
 				4010087,
 				4010088
 			}),
-			new Relic("Fan Model", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("扇子模型", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000180
 			}, new int[]
@@ -131,7 +132,7 @@ namespace RelicManager
 				4010135,
 				4010136
 			}),
-			new Relic("Fish Sub", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("潛艇模型", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000108
 			}, new int[]
@@ -140,7 +141,7 @@ namespace RelicManager
 				4010052,
 				4010053
 			}),
-			new Relic("Fortune Cat", 4, 2, 240.0, "Desert Abandoned Ruins", new int[]
+			new Relic("招財貓", 4, 2, 240.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000172
 			}, new int[]
@@ -150,7 +151,7 @@ namespace RelicManager
 				4010108,
 				4010109
 			}),
-			new Relic("French Horn", 2, 1, 180.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("圓號", 2, 1, 180.0, "濕地廢棄遺跡", new int[]
 			{
 				7000115
 			}, new int[]
@@ -158,7 +159,7 @@ namespace RelicManager
 				4010144,
 				4010145
 			}),
-			new Relic("Galloping Horse", 4, 2, 240.0, "Abandoned Ruins #1", new int[]
+			new Relic("奔馬雕塑", 4, 2, 240.0, "廢棄遺跡1號", new int[]
 			{
 				3000100
 			}, new int[]
@@ -168,7 +169,7 @@ namespace RelicManager
 				4010064,
 				4010065
 			}),
-			new Relic("Goddess Statue", 5, 2, 240.0, "Abandoned Ruins #2", new int[]
+			new Relic("女神雕像", 5, 2, 240.0, "廢棄遺跡2號", new int[]
 			{
 				3000098
 			}, new int[]
@@ -179,7 +180,7 @@ namespace RelicManager
 				4010092,
 				4010093
 			}),
-			new Relic("Incredible Mandy", 2, 1, 180.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("夢蝶手辦", 2, 1, 180.0, "濕地廢棄遺跡", new int[]
 			{
 				3000315
 			}, new int[]
@@ -187,7 +188,7 @@ namespace RelicManager
 				4010168,
 				4010169
 			}),
-			new Relic("Joystick", 2, 1, 180.0, "Abandoned Ruins #1", new int[]
+			new Relic("遊戲手柄", 2, 1, 180.0, "廢棄遺跡1號", new int[]
 			{
 				7000040
 			}, new int[]
@@ -195,7 +196,7 @@ namespace RelicManager
 				4010074,
 				4010075
 			}),
-			new Relic("Magic Lamp", 3, 1, 210.0, "Abandoned Ruins #2", new int[]
+			new Relic("神燈", 3, 1, 210.0, "廢棄遺跡2號", new int[]
 			{
 				3000107
 			}, new int[]
@@ -204,7 +205,7 @@ namespace RelicManager
 				4010067,
 				4010068
 			}),
-			new Relic("Monster Toy", 2, 1, 180.0, "Abandoned Ruins #1", new int[]
+			new Relic("怪獸玩偶", 2, 1, 180.0, "廢棄遺跡1號", new int[]
 			{
 				3000106
 			}, new int[]
@@ -212,7 +213,7 @@ namespace RelicManager
 				4010084,
 				4010085
 			}),
-			new Relic("Monument Model", 4, 2, 240.0, "Abandoned Ruins #1", new int[]
+			new Relic("紀念碑", 4, 2, 240.0, "廢棄遺跡1號", new int[]
 			{
 				3000115
 			}, new int[]
@@ -222,7 +223,7 @@ namespace RelicManager
 				4010023,
 				4010024
 			}),
-			new Relic("Old Talker", 3, 1, 210.0, "Abandoned Ruins #1", new int[]
+			new Relic("老式電話", 3, 1, 210.0, "廢棄遺跡1號", new int[]
 			{
 				3000110
 			}, new int[]
@@ -231,7 +232,7 @@ namespace RelicManager
 				4010055,
 				4010056
 			}),
-			new Relic("Old Thermos", 2, 1, 180.0, "Abandoned Ruins #1", new int[]
+			new Relic("舊水壺", 2, 1, 180.0, "廢棄遺跡1號", new int[]
 			{
 				3000099
 			}, new int[]
@@ -239,7 +240,7 @@ namespace RelicManager
 				4010057,
 				4010058
 			}),
-			new Relic("Owl Clock", 4, 1, 210.0, "Abandoned Ruins #2", new int[]
+			new Relic("貓頭鷹鐘", 4, 1, 210.0, "廢棄遺跡2號", new int[]
 			{
 				3000111
 			}, new int[]
@@ -249,7 +250,7 @@ namespace RelicManager
 				4010013,
 				4010014
 			}),
-			new Relic("Performance Center Model", 4, 2, 240.0, "Abandoned Ruins #2", new int[]
+			new Relic("大劇院", 4, 2, 240.0, "廢棄遺跡2號", new int[]
 			{
 				3000133
 			}, new int[]
@@ -259,7 +260,7 @@ namespace RelicManager
 				4010078,
 				4010079
 			}),
-			new Relic("Plane Model", 4, 2, 240.0, "Desert Abandoned Ruins", new int[]
+			new Relic("飛機模型", 4, 2, 240.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000177
 			}, new int[]
@@ -269,7 +270,7 @@ namespace RelicManager
 				4010126,
 				4010127
 			}),
-			new Relic("Porcelain Waterholder", 2, 1, 180.0, "Abandoned Ruins #1", new int[]
+			new Relic("瓷瓶", 2, 1, 180.0, "廢棄遺跡1號", new int[]
 			{
 				3000112
 			}, new int[]
@@ -277,7 +278,7 @@ namespace RelicManager
 				4010045,
 				4010046
 			}),
-			new Relic("Power Lamp", 3, 1, 210.0, "Abandoned Ruins #2", new int[]
+			new Relic("能源燈", 3, 1, 210.0, "廢棄遺跡2號", new int[]
 			{
 				3000125
 			}, new int[]
@@ -286,7 +287,7 @@ namespace RelicManager
 				4010070,
 				4010071
 			}),
-			new Relic("Rocket Model", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("火箭模型", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000176
 			}, new int[]
@@ -295,7 +296,7 @@ namespace RelicManager
 				4010122,
 				4010123
 			}),
-			new Relic("Sailboat Model", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("帆船模型", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000178
 			}, new int[]
@@ -304,7 +305,7 @@ namespace RelicManager
 				4010129,
 				4010130
 			}),
-			new Relic("Sculpted Lion", 4, 2, 240.0, "Desert Abandoned Ruins", new int[]
+			new Relic("石獅子", 4, 2, 240.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000171
 			}, new int[]
@@ -314,7 +315,7 @@ namespace RelicManager
 				4010104,
 				4010105
 			}),
-			new Relic("Soldier with Axe", 5, 3, 270.0, "Abandoned Ruins #2", new int[]
+			new Relic("持斧玩偶", 5, 3, 270.0, "廢棄遺跡2號", new int[]
 			{
 				3000102
 			}, new int[]
@@ -325,7 +326,7 @@ namespace RelicManager
 				4010033,
 				4010034
 			}),
-			new Relic("Soldier with Blade", 5, 3, 270.0, "Abandoned Ruins #2", new int[]
+			new Relic("持刀玩偶", 5, 3, 270.0, "廢棄遺跡2號", new int[]
 			{
 				3000103
 			}, new int[]
@@ -336,7 +337,7 @@ namespace RelicManager
 				4010038,
 				4010039
 			}),
-			new Relic("Soldier with Lance", 5, 2, 270.0, "Abandoned Ruins #2", new int[]
+			new Relic("持矛玩偶", 5, 2, 270.0, "廢棄遺跡2號", new int[]
 			{
 				3000104
 			}, new int[]
@@ -347,7 +348,7 @@ namespace RelicManager
 				4010043,
 				4010044
 			}),
-			new Relic("Soldier with Scepter", 5, 3, 270.0, "Abandoned Ruins #2", new int[]
+			new Relic("持杖玩偶", 5, 3, 270.0, "廢棄遺跡2號", new int[]
 			{
 				3000101
 			}, new int[]
@@ -358,7 +359,7 @@ namespace RelicManager
 				4010028,
 				4010029
 			}),
-			new Relic("Sphere Trophy", 3, 1, 210.0, "Desert Abandoned Ruins", new int[]
+			new Relic("球形獎盃", 3, 1, 210.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000179
 			}, new int[]
@@ -367,7 +368,7 @@ namespace RelicManager
 				4010132,
 				4010133
 			}),
-			new Relic("Spring Doll", 2, 1, 180.0, "Desert Abandoned Ruins", new int[]
+			new Relic("春娃娃", 2, 1, 180.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000166
 			}, new int[]
@@ -375,7 +376,7 @@ namespace RelicManager
 				4010094,
 				4010095
 			}),
-			new Relic("Summer Doll", 2, 1, 180.0, "Desert Abandoned Ruins", new int[]
+			new Relic("夏娃娃", 2, 1, 180.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000167
 			}, new int[]
@@ -383,7 +384,7 @@ namespace RelicManager
 				4010096,
 				4010097
 			}),
-			new Relic("Sunny Side", 2, 1, 180.0, "Abandoned Ruins #1", new int[]
+			new Relic("太陽臉", 2, 1, 180.0, "廢棄遺跡1號", new int[]
 			{
 				3000132
 			}, new int[]
@@ -391,7 +392,7 @@ namespace RelicManager
 				4010072,
 				4010073
 			}),
-			new Relic("The Thinking Can", 4, 2, 240.0, "Abandoned Ruins #1", new int[]
+			new Relic("深思者", 4, 2, 240.0, "廢棄遺跡1號", new int[]
 			{
 				3000105
 			}, new int[]
@@ -401,7 +402,7 @@ namespace RelicManager
 				4010049,
 				4010050
 			}),
-			new Relic("Typewriter", 2, 1, 180.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("打字機", 2, 1, 180.0, "濕地廢棄遺跡", new int[]
 			{
 				3000241
 			}, new int[]
@@ -409,7 +410,7 @@ namespace RelicManager
 				4010148,
 				4010149
 			}),
-			new Relic("Vinyl Record Player", 3, 1, 210.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("黑膠唱機", 3, 1, 210.0, "濕地廢棄遺跡", new int[]
 			{
 				3000242
 			}, new int[]
@@ -418,7 +419,7 @@ namespace RelicManager
 				4010151,
 				4010152
 			}),
-			new Relic("Weird Glass Jar", 3, 1, 210.0, "Abandoned Ruins #1", new int[]
+			new Relic("神奇玻璃罐", 3, 1, 210.0, "廢棄遺跡1號", new int[]
 			{
 				3000113
 			}, new int[]
@@ -427,7 +428,7 @@ namespace RelicManager
 				4010060,
 				4010061
 			}),
-			new Relic("Welding Helmet", 2, 1, 180.0, "Somber Marsh Abandoned Ruins", new int[]
+			new Relic("電焊盔", 2, 1, 180.0, "濕地廢棄遺跡", new int[]
 			{
 				1021017,
 				1101805,
@@ -444,7 +445,7 @@ namespace RelicManager
 				4010153,
 				4010154
 			}),
-			new Relic("Winter Doll", 2, 1, 180.0, "Desert Abandoned Ruins", new int[]
+			new Relic("冬娃娃", 2, 1, 180.0, "沙漠廢棄遺跡", new int[]
 			{
 				3000169
 			}, new int[]
@@ -452,10 +453,12 @@ namespace RelicManager
 				4010100,
 				4010101
 			})
-		});
+		})
+			.OrderBy(r => r.Location)
+			.ThenBy(r => r.Name).ToList();
 
 		// Token: 0x17000002 RID: 2
-		// (get) Token: 0x06000002 RID: 2 RVA: 0x00002057 File Offset: 0x00000257
+		// (get) Token: 0x06000002 RID: 2
 		public static int DataDiscID { get; } = 2060001;
 	}
 }

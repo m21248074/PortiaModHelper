@@ -22,12 +22,12 @@ namespace RelicManager.Patches
 			if (relic2 != null && __result.Contains("<color=#F9D872FF>"))
 			{
 				StringBuilder stringBuilder = new StringBuilder(__result);
-				stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), "In Museum: " + (relic2.InMuseum ? "<color=green>Yes</color>" : "<color=red>No</color>") + "\n\n");
-				stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), "Owned: \n");
+				stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), "博物館內: " + (relic2.InMuseum ? "<color=green>有</color>" : "<color=red>無</color>") + "\n\n");
+				stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), "持有: \n");
 				relic2.GetPiecesOwnedCounts();
 				for (int i = 0; i < relic2.Pieces; i++)
 				{
-					stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), string.Format("Piece {0}: {1}\n", i + 1, relic2.PiecesOwnedCounts[i]));
+					stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), string.Format("{0}號碎片: {1} 個\n", i + 1, relic2.PiecesOwnedCounts[i]));
 				}
 				stringBuilder.Insert(stringBuilder.ToString().IndexOf("<color=#F9D872FF>"), "\n");
 				__result = stringBuilder.ToString();
