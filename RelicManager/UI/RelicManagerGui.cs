@@ -389,6 +389,42 @@ namespace RelicManager.UI
                 GUILayout.EndHorizontal();
             }
 
+            GUILayout.Box("", new GUILayoutOption[] { GUILayout.Height(1f), GUILayout.ExpandWidth(true) });
+
+            GUILayout.BeginVertical(GUI.skin.box); // 用一個獨立的 Box 把賭場框起來
+
+            GUILayout.BeginHorizontal(new GUILayoutOption[0]);
+            GUILayout.Label("<color=yellow><b>🎰 帕斯亞皇家娛樂場 🎰</b></color> <color=white>| 規則：僅會抽出你「正在收集且未進博物館」的古物碎片！</color>", this._contentFontStyle);
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal(new GUILayoutOption[] { GUILayout.Height(35f) });
+            GUILayout.Label("<color=gray>選擇你的籌碼下注：</color>", this._contentFontStyle, GUILayout.Width(130f));
+
+            // 【按鈕 1：小賭怡情】
+            if (GUILayout.Button("<color=lime><b>小賭怡情 (250 金幣)</b></color>", GUILayout.Width(140f), GUILayout.Height(26f)))
+            {
+                Relic.GambleForPiece(1);
+            }
+            GUILayout.Space(10f);
+
+            // 【按鈕 2：大賭興家】
+            if (GUILayout.Button("<color=yellow><b>豪賭一波 (500 金幣)</b></color>", GUILayout.Width(140f), GUILayout.Height(26f)))
+            {
+                Relic.GambleForPiece(2);
+            }
+            GUILayout.Space(10f);
+
+            // 【按鈕 3：天台見（孤注一擲）】
+            if (GUILayout.Button("<color=red><b>🔥 孤注一擲 (1000 金幣)</b></color>", GUILayout.Width(160f), GUILayout.Height(26f)))
+            {
+                Relic.GambleForPiece(3);
+            }
+
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.EndVertical();
+
             GUILayout.BeginHorizontal(new GUILayoutOption[0]);
 			GUILayout.FlexibleSpace();
 			GUILayout.Label(string.Format("<color=white>擁有的資料光碟: {0}</color>", this._discsOwned), new GUILayoutOption[0]);

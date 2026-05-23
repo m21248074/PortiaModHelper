@@ -207,5 +207,70 @@ namespace RelicManager
 
             return true;
         }
+
+		public static bool GambleForPiece(int gambleLevel)
+		{
+			if (gambleLevel < 1 || gambleLevel > 3) gambleLevel = 1;
+			int cost = new int[] { 0, 250, 500, 1000 }[gambleLevel];
+
+            var eligibleRelics = Relics.RelicsList.Where(r => !r.InMuseum && r.PiecesOwnedCounts != null && r.PiecesOwnedCounts.Any(num => num > 0)).ToList();
+
+			if (eligibleRelics.Count == 0)
+			{
+                Main.Logger.Log("【抽獎失敗】沒有符合條件的古物可供抽取。請確保至少有一件未入藏且至少擁有一片碎片的古物。");
+                return false;
+            }
+
+            Random rand = new Random();
+
+			int dice = rand.Next(1, 101);
+			int dynamicDice = dice + ((gambleLevel - 1) * 10);
+
+            int randomRelicIdx = rand.Next(0, eligibleRelics.Count);
+			Relic targetRelic = eligibleRelics[randomRelicIdx];
+
+			int randomPieceIdx = rand.Next(0, targetRelic.Pieces);
+			int prizeItemID = targetRelic.PieceIDs[randomPieceIdx];
+
+			int countMultiplier = 1;
+            int extraMoney = 0;
+
+			if (dynamicDice > 95)
+			{
+                countMultiplier = (gambleLevel == 3) ? 4 : 3;
+                extraMoney = cost;
+            }
+            else if (dynamicDice > 85)
+			{
+				countMultiplier = (gambleLevel == 3) ? 3 : 2;
+				extraMoney = cost / 2;
+            }
+
+            if (Module<Player>.Self.bag.GetItemCount(prizeItemID) <= 0 && Module<Player>.Self.bag.GetFreeSlotCount(true) <= 0)
+            {
+                Main.Logger.Log($"【抽獎失敗】背包空間不足！無法容納新抽到的古物「{targetRelic.Name}」碎片。");
+                return false;
+            }
+
+			bool paySuccess = Module<Player>.Self.bag.ChangeMoney(-cost);
+
+            if (paySuccess)
+            {
+                Module<Player>.Self.bag.AddItem(prizeItemID, 1 * countMultiplier, false, 0);
+                Main.Logger.Log($"【🎰 轉蛋成功】消耗 {cost} 金幣！恭喜獲得：【{targetRelic.Name}】的 碎片 {randomPieceIdx + 1}！");
+
+                targetRelic.GetPiecesOwnedCounts();
+
+				if (extraMoney > 0)
+                    Module<Player>.Self.bag.ChangeMoney(extraMoney);
+
+                return true;
+            }
+            else
+            {
+                Main.Logger.Log($"【抽獎失敗】身上的金幣不夠！每次抽獎需要 {cost} 金幣。");
+                return false;
+            }
+        }
 	}
 }
