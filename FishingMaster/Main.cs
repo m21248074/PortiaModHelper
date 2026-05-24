@@ -3,9 +3,11 @@ using Pathea;
 using Pathea.ItemSystem;
 using Pathea.MiniGameNs;
 using Pathea.ModuleNs;
+using Pathea.MiniGameNs.Fishing;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityModManagerNet;
+using System;
 
 namespace FishingMaster
 {
@@ -66,12 +68,56 @@ namespace FishingMaster
                             newWeight = (oldWeight == 200) ? 110 : (oldWeight == 20) ? 110 : oldWeight;
                         else if (poleId == 1005003)
                             newWeight = (oldWeight == 200) ? 0 : (oldWeight == 20) ? 200 : (oldWeight == 5) ? 25 : oldWeight;
-                        
+
                         if (newWeight != -1)
                             idWeightList2[i] = new DoubleInt(idWeightList2[i].id0, newWeight);
                     }
 
                     __result = MathUtils.RandomPickInt(idWeightList2);
+                    return false;
+                }
+                catch
+                {
+                    return true;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(FishingSystem_t), "UpdateAimPos")]
+        public static class FishingSystem_t_UpdateAimPos_Patch
+        {
+            public static bool Prefix(FishingSystem_t __instance, float delta, bool isJoystick)
+            {
+                if (!Main.Enabled) return true;
+
+                try
+                {
+                    BindingFlags privateFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+                    Type sysType = typeof(FishingSystem_t);
+
+                    FieldInfo fieldCurFish = sysType.GetField("curFish", privateFlags);
+                    FieldInfo fieldAimObj = sysType.GetField("aimObj", privateFlags);
+                    if (fieldCurFish == null) return true;
+                    Fish_t curFish = fieldCurFish.GetValue(__instance) as Fish_t;
+                    object aimObj = fieldAimObj.GetValue(__instance);
+
+                    if (curFish == null || aimObj == null) return true;
+
+                    PropertyInfo propPos = aimObj.GetType().GetProperty("Pos", BindingFlags.Public | BindingFlags.Instance);
+                    if (propPos != null && propPos.CanWrite)
+                    {
+                        propPos.SetValue(aimObj, curFish.CurPostion, null);
+                    }
+
+                    MethodInfo methodGetFishAngle = sysType.GetMethod("GetFishAngle", privateFlags);
+                    FieldInfo fieldCurPlayerAngle = sysType.GetField("curPlayerAngle", privateFlags);
+
+                    if (methodGetFishAngle != null && fieldCurPlayerAngle != null)
+                    {
+                        float fishAngle = (float)methodGetFishAngle.Invoke(__instance, null);
+                        fieldCurPlayerAngle.SetValue(__instance, fishAngle);
+                    }
+
                     return false;
                 }
                 catch
