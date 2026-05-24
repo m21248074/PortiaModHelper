@@ -126,5 +126,58 @@ namespace FishingMaster
                 }
             }
         }
+
+        [HarmonyPatch(typeof(FishingSystem_t), "UpdateTension")]
+        public static class FishingSystem_t_UpdateTension_Patch
+        {
+            public static void Prefix(FishingSystem_t __instance)
+            {
+                if (!Main.Enabled) return;
+
+                try
+                {
+                    BindingFlags privateFlags = BindingFlags.NonPublic | BindingFlags.Instance;
+                    Type sysType = typeof(FishingSystem_t);
+
+                    FieldInfo fieldCurFish = sysType.GetField("curFish", privateFlags);
+                    if (fieldCurFish == null) return;
+                    if (fieldCurFish.GetValue(__instance) == null) return;
+
+                    FieldInfo fieldTension = sysType.GetField("fishWireTension", privateFlags);
+                    if (fieldTension == null) return;
+                    float currentTension = (float)fieldTension.GetValue(__instance);
+
+                    PropertyInfo propTensionMax = sysType.GetProperty("FishWireTensionMax", privateFlags);
+                    if (propTensionMax == null) return;
+                    float maxTension = (float)propTensionMax.GetValue(__instance, null);
+
+                    float tensionPercent = currentTension / maxTension;
+
+                    bool shouldDrag = false;
+
+                    if (tensionPercent < 0.70f)
+                    {
+                        shouldDrag = true; // 按住拉竿
+                    }
+                    else if (tensionPercent > 0.85f)
+                    {
+                        shouldDrag = false; // 鬆開拉竿
+                    }
+                    else
+                    {
+                        PropertyInfo propIsDragging = sysType.GetProperty("IsDragging", privateFlags);
+                        if (propIsDragging != null)
+                        {
+                            shouldDrag = (bool)propIsDragging.GetValue(__instance, null);
+                        }
+                    }
+
+                    __instance.SetDraging(shouldDrag);
+                }
+                catch
+                {
+                }
+            }
+        }
     }
 }
