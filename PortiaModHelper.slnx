@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="RelicManager/RelicManager.csproj" />
   <Project Path="AddMoreItemsToShopEditor/AddMoreItemsToShopEditor.csproj" />
+  <Project Path="FishingMaster/FishingMaster.csproj" Id="2b717b3c-572f-4965-888c-8095b7c55f53" />
+  <Project Path="RelicManager/RelicManager.csproj" />
 </Solution>

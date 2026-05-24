@@ -1,0 +1,10 @@
+{
+  "Id": "FishingMaster",
+  "DisplayName": "Fishing Master",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "ManagerVersion": "0.32.4.0",
+  "AssemblyName": "FishingMaster.dll",
+  "EntryMethod": "FishingMaster.Main.Load",
+  "HomePage": ""
+}
