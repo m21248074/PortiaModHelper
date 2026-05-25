@@ -1,0 +1,10 @@
+{
+  "Id": "GoBangDivineMove",
+  "DisplayName": "GoBang Divine Move",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "ManagerVersion": "0.32.4.0",
+  "AssemblyName": "GoBangDivineMove.dll",
+  "EntryMethod": "GoBangDivineMove.Main.Load",
+  "HomePage": ""
+}
