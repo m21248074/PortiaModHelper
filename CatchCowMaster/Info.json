@@ -1,0 +1,10 @@
+{
+  "Id": "CatchCowMaster",
+  "DisplayName": "CatchCow Master",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "ManagerVersion": "0.32.4.0",
+  "AssemblyName": "CatchCowMaster.dll",
+  "EntryMethod": "CatchCowMaster.Main.Load",
+  "HomePage": ""
+}

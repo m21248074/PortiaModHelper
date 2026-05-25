@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AddMoreItemsToShopEditor/AddMoreItemsToShopEditor.csproj" />
+  <Project Path="CatchCowMaster/CatchCowMaster.csproj" Id="978aadb9-6080-4949-887f-e3d58d696fdc" />
   <Project Path="FishingMaster/FishingMaster.csproj" Id="2b717b3c-572f-4965-888c-8095b7c55f53" />
   <Project Path="GoBangDivineMove/GoBangDivineMove.csproj" Id="561f31c9-7029-4255-81f6-79126c526a2c" />
   <Project Path="RelicManager/RelicManager.csproj" />
