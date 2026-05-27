@@ -1,0 +1,10 @@
+{
+  "Id": "CaiQuanMaster",
+  "DisplayName": "CaiQuan Master",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "ManagerVersion": "0.32.4.0",
+  "AssemblyName": "CaiQuanMaster.dll",
+  "EntryMethod": "CaiQuanMaster.Main.Load",
+  "HomePage": ""
+}
