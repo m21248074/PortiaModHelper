@@ -1,0 +1,10 @@
+{
+  "Id": "RichShop",
+  "DisplayName": "RichShop",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "ManagerVersion": "0.32.4.0",
+  "AssemblyName": "RichShop.dll",
+  "EntryMethod": "RichShop.Main.Load",
+  "HomePage": ""
+}
