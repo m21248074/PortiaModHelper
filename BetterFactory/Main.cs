@@ -1,40 +1,21 @@
-﻿/*
-Set of tweaks for Factory:
- * automatically move production from production output storage to main factory warehouse
- * replace open Product Warehouse action by open Central Power Supply on external factory control panel
- * add get button (instead of single query craft) to factory production UI
- * enable convert hardwood in wood in factory
- * show not craftable materials needed for Assembly Station on "mission" tab in Auto Worktable
- * use Artisan Skill on Auto Worktable (works per individual item in production query - as discount in shops)
-Each of above feature can be independently switch on/off via mod settings.
-
-Feel free to modify, redistribute, etc.
-
-Author: rrpbercik
-Version: 0.1.3 (2022-06-08)
-*/
-
-using Harmony12;
+﻿using HarmonyLib;
+using Pathea;
+using Pathea.CompoundSystem;
+using Pathea.CreationFactory;
+using Pathea.FarmFactoryNs;
+using Pathea.FeatureNs;
+using Pathea.InputSolutionNs;
+using Pathea.ItemSystem;
+using Pathea.ModuleNs;
+using Pathea.UISystemNs;
+using Pathea.UISystemNs.Grid;
 using System;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityModManagerNet;
-
-using Pathea;
-using Pathea.ModuleNs;
-using Pathea.FarmFactoryNs;
-using Pathea.UISystemNs;
-using Pathea.UISystemNs.Grid;
-using Pathea.InputSolutionNs;
-using Pathea.ItemSystem;
-using Pathea.CompoundSystem;
-using Pathea.CreationFactory;
-using TMPro;
-
-using Pathea.FeatureNs;
-
 
 namespace BetterFactory
 {
@@ -48,75 +29,75 @@ namespace BetterFactory
         public bool ShowNotCraftableFromAssembly = true;
         public bool UseArtisanSkill = true;
         public bool Debug = true;
+        public float CraftSpeedMult = 10f;
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
             Save(this, modEntry);
         }
     }
-	
-    public class Main
+
+    public static class Main
     {
-        public static Settings settings { get; private set; }
+        public static UnityModManager.ModEntry.ModLogger Logger;
+        public static bool Enabled = true;
 
-        public static bool enabled;
+        public static Settings _Settings { get; private set; }
 
-        static void Load(UnityModManager.ModEntry modEntry)
+        public static bool Load(UnityModManager.ModEntry modEntry)
         {
-            settings = Settings.Load<Settings>(modEntry);
+            _Settings = Settings.Load<Settings>(modEntry);
 
-            modEntry.OnGUI = OnGUI;
-            modEntry.OnSaveGUI = OnSaveGUI;
+            Logger = modEntry.Logger;
             modEntry.OnToggle = OnToggle;
+            modEntry.OnSaveGUI = OnSaveGUI;
+            modEntry.OnGUI = OnGUI;
 
-            var harmony = HarmonyInstance.Create(modEntry.Info.Id);
+            var harmony = new Harmony(modEntry.Info.Id);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+            return true;
         }
 
-        static bool OnToggle(UnityModManager.ModEntry modEntry, bool value)
+        public static bool OnToggle(UnityModManager.ModEntry modEntry, bool value)
         {
-            enabled = value;
+            Enabled = value;
             return true;
         }
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry)
         {
-            settings.Save(modEntry);
+            _Settings.Save(modEntry);
         }
 
         static void OnGUI(UnityModManager.ModEntry modEntry)
         {
-            settings.ProductionInLoop = GUILayout.Toggle(settings.ProductionInLoop, "Automatically move factory production to Material Warehouse", new GUILayoutOption[0]);
+            _Settings.ProductionInLoop = GUILayout.Toggle(_Settings.ProductionInLoop, "Automatically move factory production to Material Warehouse", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.PowerOnOutsideCtr = GUILayout.Toggle(settings.PowerOnOutsideCtr, "Replace open Product Warehouse action by open Central Power Supply on external factory control panel.", new GUILayoutOption[0]);
+            _Settings.PowerOnOutsideCtr = GUILayout.Toggle(_Settings.PowerOnOutsideCtr, "Replace open Product Warehouse action by open Central Power Supply on external factory control panel.", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.GetFromProductionUI = GUILayout.Toggle(settings.GetFromProductionUI, "Add get button (instead of single query craft) to factory production UI. Used to get items from factory storage to plaer inventory.", new GUILayoutOption[0]);
+            _Settings.GetFromProductionUI = GUILayout.Toggle(_Settings.GetFromProductionUI, "Add get button (instead of single query craft) to factory production UI. Used to get items from factory storage to plaer inventory.", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.GetFromProductionUIUseMax = GUILayout.Toggle(settings.GetFromProductionUIUseMax, "Set items count in \"Get\" dialog to max", new GUILayoutOption[0]);
+            _Settings.GetFromProductionUIUseMax = GUILayout.Toggle(_Settings.GetFromProductionUIUseMax, "Set items count in \"Get\" dialog to max", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.FullWorktable = GUILayout.Toggle(settings.FullWorktable, "Enable convert hardwood in wood in factory (exactly allow to craft \"NotAutomable\" but \"Instant\" items on Auto Worktable).", new GUILayoutOption[0]);
+            _Settings.FullWorktable = GUILayout.Toggle(_Settings.FullWorktable, "Enable convert hardwood in wood in factory (exactly allow to craft \"NotAutomable\" but \"Instant\" items on Auto Worktable).", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.ShowNotCraftableFromAssembly = GUILayout.Toggle(settings.ShowNotCraftableFromAssembly, "Show not craftable materials needed for Assembly Station on Auto Worktable. Useful for \"get\" option.", new GUILayoutOption[0]);
+            _Settings.ShowNotCraftableFromAssembly = GUILayout.Toggle(_Settings.ShowNotCraftableFromAssembly, "Show not craftable materials needed for Assembly Station on Auto Worktable. Useful for \"get\" option.", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.UseArtisanSkill = GUILayout.Toggle(settings.UseArtisanSkill, "Use Artisan Skill on Auto Worktable. Discount will be apply per individual item in query and rounded (not per full query, as on standard Worktable).", new GUILayoutOption[0]);
+            _Settings.UseArtisanSkill = GUILayout.Toggle(_Settings.UseArtisanSkill, "Use Artisan Skill on Auto Worktable. Discount will be apply per individual item in query and rounded (not per full query, as on standard Worktable).", new GUILayoutOption[0]);
             GUILayout.Space(10f);
-            settings.Debug = GUILayout.Toggle(settings.Debug, "Write debug info to log.", new GUILayoutOption[0]);
+            _Settings.Debug = GUILayout.Toggle(_Settings.Debug, "Write debug info to log.", new GUILayoutOption[0]);
             GUILayout.Space(10f);
+            GUILayout.Label(string.Format("Crafting speed multiplied by {0}", _Settings.CraftSpeedMult), new GUILayoutOption[0]);
+            _Settings.CraftSpeedMult = GUILayout.HorizontalSlider(_Settings.CraftSpeedMult, 1f, 100f, new GUILayoutOption[0]);
+            _Settings.CraftSpeedMult = (float)Math.Round((double)_Settings.CraftSpeedMult, 0);
         }
-
-        static void Log(string info)
-        {
-            if (settings.Debug)
-                Debug.Log("BetterFactory: " + info);
-        }
-
 
         /*
          * Inter Patches Variables
          */
 
         static int currentItemID = 0; // item id set by ShowNotCraftableFromAssembly for GetFromProductionUI
-
 
         /*
          * ProductionInLoop Patch
@@ -127,16 +108,15 @@ namespace BetterFactory
         {
             static void Postfix(FarmFactory __instance, int id, int num)
             {
-                if (!enabled || !settings.ProductionInLoop)
+                if (!Enabled || !_Settings.ProductionInLoop)
                     return;
 
-                Log($"move {num} of {id} from Production Output to Warehouse");
+                Logger.Log($"move {num} of {id} from Production Output to Warehouse");
 
                 __instance.RemoveFinshedProduct(id, num);
                 __instance.MatList.Add(id, num);
             }
         }
-
 
         /*
          * PowerOnOutsideCtr Patch
@@ -147,7 +127,7 @@ namespace BetterFactory
         {
             static void Postfix(FarmFactory_Outside_Ctr __instance, PlayerTargetMultiAction ___cmdTable)
             {
-                if (!enabled || !settings.PowerOnOutsideCtr)
+                if (!Enabled || !_Settings.PowerOnOutsideCtr)
                     return;
 
                 ___cmdTable.RemoveAction(ActionType.ActionRevealTreasure);
@@ -159,7 +139,7 @@ namespace BetterFactory
         {
             static bool Prefix(FarmFactory_Outside_Ctr __instance, ActionType type)
             {
-                if (!enabled || !settings.PowerOnOutsideCtr)
+                if (!Enabled || !_Settings.PowerOnOutsideCtr)
                     return true;
 
                 if (type == ActionType.ActionRevealTreasure)
@@ -182,7 +162,6 @@ namespace BetterFactory
             }
         }
 
-
         /*
          * GetFromProductionUI Patch
          */
@@ -192,7 +171,7 @@ namespace BetterFactory
         {
             static void Postfix(FarmFactoryProductUICtr __instance, GameObject ___addToListBtnSingle, GameObject ___addToListBtn)
             {
-                if (enabled && settings.GetFromProductionUI)
+                if (Enabled && _Settings.GetFromProductionUI)
                 {
                     ___addToListBtnSingle.GetComponentInChildren<TextMeshProUGUI>().text = TextMgr.GetStr(100509, -1);
                     ___addToListBtn.GetComponentInChildren<TextMeshProUGUI>().text = TextMgr.GetStr(100081, -1);
@@ -204,7 +183,7 @@ namespace BetterFactory
         {
             static bool Prefix(FarmFactoryProductUICtr __instance, FarmFactory ___factory, CompoundItem ___curItem)
             {
-                if (!enabled || !settings.GetFromProductionUI)
+                if (!Enabled || !_Settings.GetFromProductionUI)
                     return true;
 
                 if (___curItem != null)
@@ -214,25 +193,24 @@ namespace BetterFactory
                 int max = __instance.GetItemCount(currentItemID);
                 Action<int> getItemsCallbackAction = delegate (int num)
                 {
-					if (num < 0)
-						num = 0;
-					else if (num > max)
-						num = max;
-                    Log($"get {num} (max = {max}) of {currentItemID} from factory");
+                    if (num < 0)
+                        num = 0;
+                    else if (num > max)
+                        num = max;
+                    Logger.Log($"get {num} (max = {max}) of {currentItemID} from factory");
                     Module<Player>.Self.bag.AddItem(currentItemID, num, true, AddItemMode.Default);
                     ___factory.RemoveMat(currentItemID, num);
                 };
                 string str = TextMgr.GetStr(100509, -1);
-                
+
                 NumberSelectWithItems uiGetItems = UIUtils.ShowNumberSelectWithMat(
-                    currentItemID, 0, max, settings.GetFromProductionUIUseMax ? max : 1, str, getItemsCallbackAction, null, false, 0, string.Empty, null
+                    currentItemID, 0, max, _Settings.GetFromProductionUIUseMax ? max : 1, str, getItemsCallbackAction, null, false, 0, string.Empty, null
                 );
                 uiGetItems.SetContent(str);
 
                 return false;
             }
         }
-
 
         /*
          * FullWorktable Patch
@@ -243,9 +221,9 @@ namespace BetterFactory
         {
             static void Postfix(ref bool __result, CompoundItemData __instance)
             {
-                if (enabled && settings.FullWorktable && __result && __instance.CompoundTime == 0)
+                if (Enabled && _Settings.FullWorktable && __result && __instance.CompoundTime == 0)
                 {
-                    Log($"set {__instance.ID} as Automable");
+                    Logger.Log($"set {__instance.ID} as Automable");
                     __result = false;
                 }
             }
@@ -260,15 +238,14 @@ namespace BetterFactory
                     Log($"set {__instance.ID} as Automable");
                     __result = false;
                 }*/
-				Log($"level on compound tree for {___compound.Id} is {__instance.level}");
+                Logger.Log($"level on compound tree for {___compound.Id} is {__instance.level}");
                 if (__instance.level > 4)
                 {
-                    Log(" - reduced to 4");
+                    Logger.Log(" - reduced to 4");
                     __instance.level = 4;
                 }
             }
         }
-
 
         /*
          * ShowNotCraftableFromAssembly Patch
@@ -284,7 +261,7 @@ namespace BetterFactory
                 GameObject ___changeItemBtn, GameObject ___addToListBtn, GameObject ___addToListBtnSingle, GameObject ___showCompoundBtn, GameObject ___cancelItemBtn
             )
             {
-                if (!enabled || !settings.ShowNotCraftableFromAssembly)
+                if (!Enabled || !_Settings.ShowNotCraftableFromAssembly)
                     return;
 
                 var creationStationNeeds = Module<CreationFactoryManager>.Self.GetMannualCreationNeedMaterial();
@@ -292,7 +269,7 @@ namespace BetterFactory
                 {
                     if (Module<CompoundManager>.Self.GetitemInFactoryById(matIter.id) == null)
                     {
-                        Log($"add {matIter.id} not craftable item from assembly station to mission page");
+                        Logger.Log($"add {matIter.id} not craftable item from assembly station to mission page");
 
                         ___creationTabImg.sprite = Singleton<ResMgr>.Instance.LoadSyncByType<Sprite>(AssetType.UiSystem, ResPath.CreationTipsIcon[___creationLevel]);
                         ___creationTabImg.gameObject.SetActive(true);
@@ -307,7 +284,7 @@ namespace BetterFactory
                         guiItem.onSelectBg += delegate (int i)
                         {
                             currentItemID = i;
-                            Log($"set currentItemID to {currentItemID} (for not craftable item)");
+                            Logger.Log($"set currentItemID to {currentItemID} (for not craftable item)");
 
                             // list background
                             FieldInfo lastSelectField = __instance.GetType().GetField("lastSelect", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
@@ -319,9 +296,9 @@ namespace BetterFactory
                             __instance.GetType().GetField("curItemWorkList", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, false);
 
                             // item info and buttons
-                            __instance.GetType().GetMethod("ShowInfo", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Invoke(__instance, new object[] {null});
+                            __instance.GetType().GetMethod("ShowInfo", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Invoke(__instance, new object[] { null });
                             ___curItemNameText.text = Module<ItemDataMgr>.Self.GetItemName(currentItemID); ;
-                            ___addToListBtnSingle.SetActive(settings.GetFromProductionUI);
+                            ___addToListBtnSingle.SetActive(_Settings.GetFromProductionUI);
 
                             // item preview
                             try
@@ -331,14 +308,13 @@ namespace BetterFactory
                             }
                             catch (Exception ex)
                             {
-                                Log("preview error: " + ex.ToString());
+                                Logger.Log("preview error: " + ex.ToString());
                             }
                         };
                     }
                 }
             }
         }
-
 
         /*
          * UseArtisanSkill Patch
@@ -349,11 +325,11 @@ namespace BetterFactory
         {
             static void Postfix(int itemId, List<IdCount> mat, int num)
             {
-                if (!enabled || !settings.UseArtisanSkill)
+                if (!Enabled || !_Settings.UseArtisanSkill)
                     return;
 
                 float discount = Module<FeatureModule>.Self.ModifyFloat(FeatureType.WorkbenchMaterialCut, new object[] { 0f });
-                Log($"crafting discount is {discount}, itemId is {itemId}");
+                Logger.Log($"crafting discount is {discount}, itemId is {itemId}");
 
                 if (discount > 0)
                 {
@@ -363,13 +339,24 @@ namespace BetterFactory
                         foreach (var matIter in mat)
                         {
                             int newCount = (int)Math.Round(matIter.count * (1 - discount));
-							if (newCount < 1)
-								newCount = 1;
-                            Log($"applay {discount * 100}% discount to {matIter.id} used for {num} x {item.Name}, old count = {matIter.count}, new count = newCount");
+                            if (newCount < 1)
+                                newCount = 1;
+                            Logger.Log($"applay {discount * 100}% discount to {matIter.id} used for {num} x {item.Name}, old count = {matIter.count}, new count = newCount");
                             matIter.count = newCount;
                         }
                     }
                 }
+            }
+        }
+
+        [HarmonyPatch(typeof(FarmFactory), "GetDashBoardSpeed")]
+        static class FarmFactory_GetDashBoardSpeed_Patch
+        {
+            static void Postfix(ref float __result)
+            {
+                if (!Enabled) return;
+
+                __result *= _Settings.CraftSpeedMult;
             }
         }
     }

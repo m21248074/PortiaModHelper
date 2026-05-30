@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AddMoreItemsToShopEditor/AddMoreItemsToShopEditor.csproj" />
+  <Project Path="BetterFactory/BetterFactory.csproj" Id="d6b13b13-9249-4e52-8143-ba200e0098e7" />
   <Project Path="CaiQuanMaster/CaiQuanMaster.csproj" Id="c3b7df2c-7a74-4de7-adc3-198bf45b6ae8" />
   <Project Path="CatchCowMaster/CatchCowMaster.csproj" Id="978aadb9-6080-4949-887f-e3d58d696fdc" />
   <Project Path="FishingMaster/FishingMaster.csproj" Id="2b717b3c-572f-4965-888c-8095b7c55f53" />
