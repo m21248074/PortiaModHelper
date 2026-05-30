@@ -1,0 +1,8 @@
+{
+  "Id": "BetterFactory",
+  "DisplayName": "Better Factory",
+  "Author": "rrpbercik",
+  "Version": "0.1.3",
+  "AssemblyName": "BetterFactory.dll",
+  "EntryMethod": "BetterFactory.Main.Load"
+}
