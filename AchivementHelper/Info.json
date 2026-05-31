@@ -1,0 +1,8 @@
+{
+  "Id": "AchivementHelper",
+  "DisplayName": "Achivement Helper",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "AssemblyName": "AchivementHelper.dll",
+  "EntryMethod": "AchivementHelper.Main.Load"
+}

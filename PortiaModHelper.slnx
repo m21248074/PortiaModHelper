@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="AchivementHelper/AchivementHelper.csproj" Id="1faf26f5-e967-42fe-bee3-216eb96a8d39" />
   <Project Path="AddMoreItemsToShopEditor/AddMoreItemsToShopEditor.csproj" />
   <Project Path="BetterFactory/BetterFactory.csproj" Id="d6b13b13-9249-4e52-8143-ba200e0098e7" />
   <Project Path="CaiQuanMaster/CaiQuanMaster.csproj" Id="c3b7df2c-7a74-4de7-adc3-198bf45b6ae8" />
