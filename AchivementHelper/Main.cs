@@ -85,4 +85,55 @@ namespace AchivementHelper
             GUILayout.EndScrollView();
         }
     }
+
+    [HarmonyPatch(typeof(AchievementModule))]
+    public static class AchievementModule_SpeedUp_Loop_Patch
+    {
+        [HarmonyPatch("TalkWithNpc")]
+        [HarmonyPrefix]
+        public static void TalkWithNpc_Prefix(AchievementModule __instance)
+        {
+            if (!Main.Enabled) return;
+
+            var updateAchievementMethod = Traverse.Create(__instance).Method(
+                "UpdateAchievement",
+                new object[] { AchievementType.NpcTalkTimes, UpdateType.Add, 4, 0 }
+            );
+
+            updateAchievementMethod.GetValue();
+            
+        }
+
+        [HarmonyPatch("GiftToNpc")]
+        [HarmonyPrefix]
+        public static void GiftToNpc_Prefix(AchievementModule __instance, bool isPositive, bool isLikely)
+        {
+            if (!Main.Enabled) return;
+
+            var traverse = Traverse.Create(__instance);
+
+            traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftTimes, UpdateType.Add, 4, 0 }).GetValue();
+
+            if (isLikely)
+            {
+                traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftLikelyGoodsTimes, UpdateType.Add, 4, 0 }).GetValue();
+            }
+            if (!isPositive)
+            {
+                traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftBadGoodsTimes, UpdateType.Add, 4, 0 }).GetValue();
+            }
+        }
+
+        [HarmonyPatch("PickupItem")]
+        [HarmonyPrefix]
+        public static void PickupItem_Prefix(AchievementModule __instance, int itemId)
+        {
+            if (!Main.Enabled) return;
+
+            Traverse.Create(__instance).Method(
+                "UpdateAchievement",
+                new object[] { AchievementType.PickItemTimes, UpdateType.Add, 4, itemId }
+            ).GetValue();
+        }
+    }
 }

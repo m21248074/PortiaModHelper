@@ -2,7 +2,7 @@
   "Id": "AchivementHelper",
   "DisplayName": "Achivement Helper",
   "Author": "Cavey",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "AssemblyName": "AchivementHelper.dll",
   "EntryMethod": "AchivementHelper.Main.Load"
 }
