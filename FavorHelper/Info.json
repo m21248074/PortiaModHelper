@@ -1,0 +1,8 @@
+{
+  "Id": "FavorHelper",
+  "DisplayName": "Favor Helper",
+  "Author": "Cavey",
+  "Version": "1.0.0",
+  "AssemblyName": "FavorHelper.dll",
+  "EntryMethod": "FavorHelper.Main.Load"
+}
