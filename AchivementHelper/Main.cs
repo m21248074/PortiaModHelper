@@ -95,13 +95,15 @@ namespace AchivementHelper
         {
             if (!Main.Enabled) return;
 
-            var updateAchievementMethod = Traverse.Create(__instance).Method(
-                "UpdateAchievement",
-                new object[] { AchievementType.NpcTalkTimes, UpdateType.Add, 4, 0 }
-            );
+            for (int i = 0; i < 4; i++)
+            {
+                var updateAchievementMethod = Traverse.Create(__instance).Method(
+                    "UpdateAchievement",
+                    new object[] { AchievementType.NpcTalkTimes, UpdateType.Add, 1, 0 }
+                );
 
-            updateAchievementMethod.GetValue();
-            
+                updateAchievementMethod.GetValue();
+            }
         }
 
         [HarmonyPatch("GiftToNpc")]
@@ -112,15 +114,18 @@ namespace AchivementHelper
 
             var traverse = Traverse.Create(__instance);
 
-            traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftTimes, UpdateType.Add, 4, 0 }).GetValue();
+            for (int i = 0; i < 4; i++)
+            {
+                traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftTimes, UpdateType.Add, 1, 0 }).GetValue();
 
-            if (isLikely)
-            {
-                traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftLikelyGoodsTimes, UpdateType.Add, 4, 0 }).GetValue();
-            }
-            if (!isPositive)
-            {
-                traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftBadGoodsTimes, UpdateType.Add, 4, 0 }).GetValue();
+                if (isLikely)
+                {
+                    traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftLikelyGoodsTimes, UpdateType.Add, 1, 0 }).GetValue();
+                }
+                if (!isPositive)
+                {
+                    traverse.Method("UpdateAchievement", new object[] { AchievementType.GiftBadGoodsTimes, UpdateType.Add, 1, 0 }).GetValue();
+                }
             }
         }
 
@@ -130,10 +135,13 @@ namespace AchivementHelper
         {
             if (!Main.Enabled) return;
 
-            Traverse.Create(__instance).Method(
-                "UpdateAchievement",
-                new object[] { AchievementType.PickItemTimes, UpdateType.Add, 4, itemId }
-            ).GetValue();
+            for (int i = 0; i < 4; i++)
+            {
+                Traverse.Create(__instance).Method(
+                    "UpdateAchievement",
+                    new object[] { AchievementType.PickItemTimes, UpdateType.Add, 1, itemId }
+                ).GetValue();
+            }
         }
     }
 }
