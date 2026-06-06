@@ -3,6 +3,9 @@
   "DisplayName": "Favor Helper",
   "Author": "Cavey",
   "Version": "1.0.0",
+  "ManagerVersion": "0.32.4.0",
   "AssemblyName": "FavorHelper.dll",
-  "EntryMethod": "FavorHelper.Main.Load"
+  "EntryMethod": "FavorHelper.Main.Load",
+  "HomePage": "https://www.nexusmods.com/mytimeatportia/mods/193",
+  "Repository": "https://raw.githubusercontent.com/m21248074/PortiaModHelper/master/repository.json"
 }

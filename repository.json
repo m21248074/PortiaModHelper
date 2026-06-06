@@ -11,6 +11,10 @@
     {
       "Id": "CatchCowMaster",
       "Version": "1.0.0"
+    },
+    {
+      "Id": "FavorHelper",
+      "Version": "1.0.0"
     }
   ]
 }
