@@ -1,0 +1,11 @@
+{
+  "Id": "RelicManager",
+  "DisplayName": "Relic Manager",
+  "Author": "Cavey",
+  "Version": "1.3.2.1",
+  "ManagerVersion": "0.32.4.0",
+  "AssemblyName": "RelicManager.dll",
+  "EntryMethod": "RelicManager.Main.Load",
+  "HomePage": "https://github.com/m21248074/PortiaModHelper",
+  "Repository": "https://raw.githubusercontent.com/m21248074/PortiaModHelper/master/repository.json"
+}
