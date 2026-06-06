@@ -2,7 +2,10 @@
   "Id": "BetterFactory",
   "DisplayName": "Better Factory",
   "Author": "Cavey",
-  "Version": "0.1.4",
+  "Version": "0.1.3.1",
+  "ManagerVersion": "0.32.4.0",
   "AssemblyName": "BetterFactory.dll",
-  "EntryMethod": "BetterFactory.Main.Load"
+  "EntryMethod": "BetterFactory.Main.Load",
+  "HomePage": "https://github.com/m21248074/PortiaModHelper",
+  "Repository": "https://raw.githubusercontent.com/m21248074/PortiaModHelper/master/repository.json"
 }
