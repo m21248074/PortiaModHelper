@@ -1,3 +1,12 @@
 {
-  "Releases": [{ "Id": "AchivementHelper", "Version": "1.0.1" }]
+  "Releases": [
+    {
+      "Id": "AchivementHelper",
+      "Version": "1.0.1"
+    },
+    {
+      "Id": "CaiQuanMaster",
+      "Version": "1.0.0"
+    }
+  ]
 }
