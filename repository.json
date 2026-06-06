@@ -7,6 +7,10 @@
     {
       "Id": "CaiQuanMaster",
       "Version": "1.0.0"
+    },
+    {
+      "Id": "CatchCowMaster",
+      "Version": "1.0.0"
     }
   ]
 }
