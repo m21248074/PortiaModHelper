@@ -3,6 +3,8 @@
   "DisplayName": "Achivement Helper",
   "Author": "Cavey",
   "Version": "1.0.1",
+  "ManagerVersion": "0.32.4.0",
   "AssemblyName": "AchivementHelper.dll",
-  "EntryMethod": "AchivementHelper.Main.Load"
+  "EntryMethod": "AchivementHelper.Main.Load",
+  "HomePage": "https://www.nexusmods.com/mytimeatportia/mods/190"
 }
