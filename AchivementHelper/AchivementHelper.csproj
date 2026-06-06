@@ -64,6 +64,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell -Command "$tempDir = Join-Path '$(TargetDir)' 'AchivementHelper'; New-Item -ItemType Directory -Path $tempDir -Force; Copy-Item '$(TargetDir)AchivementHelper.dll', '$(TargetDir)Info.json' -Destination $tempDir; Compress-Archive -Path $tempDir -DestinationPath '$(TargetDir)AchivementHelper.zip' -Force; Remove-Item -Recurse -Force $tempDir"</PostBuildEvent>
+    <PostBuildEvent>powershell -Command "$tempDir = Join-Path '$(TargetDir)' '$(ProjectName)'; New-Item -ItemType Directory -Path $tempDir -Force; Copy-Item '$(TargetDir)$(ProjectName).dll', '$(TargetDir)Info.json' -Destination $tempDir; Compress-Archive -Path $tempDir -DestinationPath '$(TargetDir)$(ProjectName).zip' -Force; Remove-Item -Recurse -Force $tempDir"</PostBuildEvent>
   </PropertyGroup>
 </Project>
