@@ -19,6 +19,10 @@
     {
       "Id": "FishingMaster",
       "Version": "1.0.0"
+    },
+    {
+      "Id": "RichShop",
+      "Version": "1.0.0"
     }
   ]
 }
